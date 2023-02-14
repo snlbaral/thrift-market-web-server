@@ -10,13 +10,8 @@ function AddColor(props) {
     const data = {
       name,
     };
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
 
-    axios.post("/color", data, config).then((response) => {
+    axios.post("/color", data).then((response) => {
       $(".color").val("");
       console.log(response.data);
       props.history.goBack();

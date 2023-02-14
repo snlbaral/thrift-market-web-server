@@ -6,18 +6,13 @@ function Addbrand(props) {
   const [image, setImage] = useState("");
 
   function brand(e) {
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
     e.preventDefault();
     const data = new FormData();
     data.append("name", name);
     data.append("image", image);
 
     axios
-      .post("/brand", data, config)
+      .post("/brand", data)
       .then((response) => {
         console.log(response.data);
         props.history.goBack();

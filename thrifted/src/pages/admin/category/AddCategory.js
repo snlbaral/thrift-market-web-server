@@ -9,11 +9,6 @@ function AddCategory(props) {
   const [cover, setCover] = useState("");
 
   function addcategory(e) {
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
     e.preventDefault();
 
     const data = new FormData();
@@ -25,7 +20,7 @@ function AddCategory(props) {
     }
 
     axios
-      .post("/category", data, config)
+      .post("/category", data)
       .then((response) => {
         console.log(response.data);
         props.history.goBack();
@@ -36,13 +31,8 @@ function AddCategory(props) {
   }
 
   useEffect(() => {
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
     axios
-      .get("/category", config)
+      .get("/category")
       .then((response) => {
         console.log(response.data);
         setCategories(response.data);

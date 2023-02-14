@@ -9,11 +9,6 @@ function BannerAdd(props) {
 
   function banner(e) {
     e.preventDefault();
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
 
     const data = new FormData();
     data.append("title", title);
@@ -22,7 +17,7 @@ function BannerAdd(props) {
     data.append("section", section);
     console.log(section);
     axios
-      .post("/banner", data, config)
+      .post("/banner", data)
       .then((response) => {
         console.log(response.data);
         props.history.goBack();

@@ -6,12 +6,7 @@ function Editbrand(props) {
   const [name, setName] = useState(null);
   const [image, setImage] = useState(null);
   useEffect(() => {
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
-    axios.get("/brand/" + props.match.params.id, config).then((response) => {
+    axios.get("/brand/" + props.match.params.id).then((response) => {
       console.log(response.data);
       setBrand(response.data);
       setName(response.data.name);
@@ -20,18 +15,13 @@ function Editbrand(props) {
   }, []);
 
   function replace(e, id) {
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
     e.preventDefault();
     const data = new FormData();
     data.append("name", name);
     data.append("image", image);
 
     axios
-      .put("/brand/" + props.match.params.id, data, config)
+      .put("/brand/" + props.match.params.id, data)
       .then((response) => {
         console.log(response.data);
         setBrand(response.data);

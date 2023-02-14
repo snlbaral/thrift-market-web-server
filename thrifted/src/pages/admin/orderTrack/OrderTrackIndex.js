@@ -13,19 +13,13 @@ function OrderTrackIndex() {
   const [is_loader, setIs_loader] = useState(true);
   const [deleteId, setDeleteId] = useState(0);
 
-  const config = {
-    headers: {
-      "access-token": localStorage.getItem("token"),
-    },
-  };
-
   useEffect(() => {
     getOrders();
   }, []);
 
   async function getOrders() {
     try {
-      const response = await axios.get("/order/pending/order", config);
+      const response = await axios.get("/order/pending/order");
       setOrders(response.data);
       setIs_loader(false);
     } catch (error) {}

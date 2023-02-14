@@ -8,14 +8,8 @@ function BannerEdit(props) {
   const [image, setImage] = useState(null);
   const [section, setSection] = useState(null);
 
-  const config = {
-    headers: {
-      "access-token": localStorage.getItem("token"),
-    },
-  };
-
   useEffect(() => {
-    axios.get("/banner/" + props.match.params.id, config).then((response) => {
+    axios.get("/banner/" + props.match.params.id).then((response) => {
       console.log(response.data);
       setBanner(response.data);
       setTitle(response.data.title);
@@ -27,23 +21,16 @@ function BannerEdit(props) {
 
   function replace(e) {
     e.preventDefault();
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
 
     const data = new FormData();
     data.append("title", title);
     data.append("link", link);
     data.append("image", image);
     data.append("section", section);
-    axios
-      .put("/banner/" + props.match.params.id, data, config)
-      .then((response) => {
-        props.history.push("/admin/banner");
-        console.log(response.data);
-      });
+    axios.put("/banner/" + props.match.params.id, data).then((response) => {
+      props.history.push("/admin/banner");
+      console.log(response.data);
+    });
   }
 
   return (

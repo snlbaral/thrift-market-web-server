@@ -210,7 +210,7 @@ function Navbar(props) {
         </div>
         <div className="sub-right">
           <a href="/#howitwork">HOW IT WORK</a>
-          <Link to="/sellerrequest">SELL ON </Link>
+          <Link to="/seller-request">SELL ON </Link>
         </div>
       </div>
     </section>

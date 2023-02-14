@@ -6,19 +6,12 @@ function AddSize(props) {
   const [name, setName] = useState("");
 
   function addsize(e) {
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
-
-    e.preventDefault();
     e.preventDefault();
     const data = {
       name,
     };
     axios
-      .post("/size", data, config)
+      .post("/size", data)
       .then((response) => {
         console.log(response.data);
         props.history.goBack();

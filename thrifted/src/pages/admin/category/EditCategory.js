@@ -10,12 +10,7 @@ function EditCategory(props) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
-    axios.get("/category/" + props.match.params.id, config).then((response) => {
+    axios.get("/category/" + props.match.params.id).then((response) => {
       console.log(response.data);
 
       setName(response.data.name);
@@ -25,7 +20,7 @@ function EditCategory(props) {
     });
 
     axios
-      .get("/category", config)
+      .get("/category")
       .then((response) => {
         console.log(response.data);
         setCategories(response.data);
@@ -36,12 +31,6 @@ function EditCategory(props) {
   }, []);
 
   function replace(e, id) {
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
-
     e.preventDefault();
     const data = new FormData();
     data.append("name", name);
@@ -50,7 +39,7 @@ function EditCategory(props) {
     data.append("parent_id", parent_id);
 
     axios
-      .put("/category/" + props.match.params.id, data, config)
+      .put("/category/" + props.match.params.id, data)
       .then((response) => {
         console.log(response.data);
         setCategory(response.data);

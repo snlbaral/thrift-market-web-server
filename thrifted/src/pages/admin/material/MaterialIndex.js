@@ -11,19 +11,13 @@ function MaterialIndex() {
   const [is_loader, setIs_loader] = useState(true);
   const [deleteId, setDeleteId] = useState(0);
 
-  const config = {
-    headers: {
-      "access-token": localStorage.getItem("token"),
-    },
-  };
-
   useEffect(() => {
     getMaterials();
   }, []);
 
   async function getMaterials() {
     try {
-      const response = await axios.get("/frontend/materials/get", config);
+      const response = await axios.get("/frontend/materials/get");
       setMaterials(response.data);
       setIs_loader(false);
     } catch (error) {

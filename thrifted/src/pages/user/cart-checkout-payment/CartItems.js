@@ -26,42 +26,37 @@ function CartItems(props) {
     setPageLoader(false);
   }
 
-  useEffect(() => {
-    testApi();
-    console.log("heyyyy");
-  }, [props]);
+  // async function testApi() {
+  //   console.log("start");
+  //   try {
+  //     const config2 = {
+  //       headers: {
+  //         Authorization: "Token f6fe2f12ebf5595d62887f8968df969360b98c0e",
+  //       },
+  //     };
+  //     console.log("heyy");
+  //     const data = {
+  //       name: "demo",
+  //       phone: "9845534063",
+  //       cod_charge: 0,
+  //       address: "Byas Pokhari",
+  //       branch: "CHITWAN",
+  //       fbranch: "Hetauda",
+  //       delivery_type: "Door2Branch",
+  //     };
+  //     console.log("data", data);
+  //     const response = await axios.post(
+  //       "https://demo.nepalcanmove.com/api/v1/order/create",
+  //       data,
+  //       config2
+  //     );
 
-  async function testApi() {
-    console.log("start");
-    try {
-      const config2 = {
-        headers: {
-          Authorization: "Token f6fe2f12ebf5595d62887f8968df969360b98c0e",
-        },
-      };
-      console.log("heyy");
-      const data = {
-        name: "demo",
-        phone: "9845534063",
-        cod_charge: 0,
-        address: "Byas Pokhari",
-        branch: "CHITWAN",
-        fbranch: "Hetauda",
-        delivery_type: "Door2Branch",
-      };
-      console.log("data", data);
-      const response = await axios.post(
-        "https://demo.nepalcanmove.com/api/v1/order/create",
-        data,
-        config2
-      );
-
-      console.log("response", response.data);
-    } catch (error) {
-      console.log("testt");
-      console.log("error", error.request.response);
-    }
-  }
+  //     console.log("response", response.data);
+  //   } catch (error) {
+  //     console.log("testt");
+  //     console.log("error", error.request.response);
+  //   }
+  // }
 
   return (
     <div className="card-section py-5">

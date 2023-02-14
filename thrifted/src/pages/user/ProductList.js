@@ -7,15 +7,9 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from "jquery";
 
 function ProductList(props) {
-  const config = {
-    headers: {
-      "access-token": localStorage.getItem("token"),
-    },
-  };
-
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axios.get("frontend/productall", config).then((response) => {
+    axios.get("frontend/productall").then((response) => {
       console.log(response.data);
 
       setProducts(response.data);

@@ -11,11 +11,6 @@ function MaterialCreate(props) {
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
   const [featureimg, setFeatureimg] = useState([]);
-  const config = {
-    headers: {
-      "access-token": localStorage.getItem("token"),
-    },
-  };
 
   async function add(e) {
     e.preventDefault();
@@ -36,7 +31,7 @@ function MaterialCreate(props) {
       data.append("feature", featureimg[i]);
     }
     try {
-      await axios.post("/material", data, config);
+      await axios.post("/material", data);
       props.history.goBack();
     } catch (error) {
       apiErrorNotification(error);

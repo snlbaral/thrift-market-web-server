@@ -14,15 +14,9 @@ function Order() {
   const [is_loader, setIs_loader] = useState(true);
   const [deleteId, setDeleteId] = useState(0);
 
-  const config = {
-    headers: {
-      "access-token": localStorage.getItem("token"),
-    },
-  };
-
   useEffect(() => {
     axios
-      .get("/order/all", config)
+      .get("/order/all")
       .then((response) => {
         console.log(response.data);
         setItems(response.data);
@@ -38,7 +32,7 @@ function Order() {
       order_status: e.target.value,
       id,
     };
-    axios.post("/order/orderstatus", data, config).then((response) => {
+    axios.post("/order/orderstatus", data).then((response) => {
       console.log(response.data);
     });
   }

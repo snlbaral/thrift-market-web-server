@@ -8,13 +8,8 @@ import $ from "jquery";
 function City() {
   const [cities, setCities] = useState([]);
   useEffect(() => {
-    const config = {
-      headers: {
-        "access-token": localStorage.getItem("token"),
-      },
-    };
     axios
-      .get("/city", config)
+      .get("/city")
       .then((response) => {
         console.log(response.data);
         setCities(response.data);

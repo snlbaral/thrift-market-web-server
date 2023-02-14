@@ -51,7 +51,7 @@ function Footer() {
               <h5>Customer Care</h5>
               <ul>
                 <li>
-                  <a href="/sellerrequest">How to sell</a>
+                  <a href="/seller-request">How to sell</a>
                 </li>
                 <li>
                   <a href="/contactus">Contact Us</a>
