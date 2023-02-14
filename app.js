@@ -87,7 +87,7 @@ try {
     useFindAndModify: false,
   });
 } catch (err) {
-  console.log(err.message);
+  //console.log(err.message);
 }
 
 function sendNotification(user_id, notification) {
