@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <title></title>
+
+  <style type="text/css">
+    html {
+      zoom: 0.8;
+    }
+
+    body {
+      height: 100vh;
+    }
+
+    .shipping-label-container {
+      border: 2px solid black;
+    }
+
+    .shipping-label-container>.row.first {
+      text-align: center;
+    }
+
+    .shipping-label-container>.row.first>div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.3rem;
+    }
+
+    .shipping-label-container>.row.first .border-right-2 {
+      border-right: 2px solid black;
+    }
+
+    .shipping-label-container>.row.second {
+      display: flex;
+      justify-content: center;
+      border-top: 2px solid black;
+    }
+
+    .shipping-label-container>.row.second .col-md-8 {
+      border-right: 2px solid black;
+      text-align: center;
+    }
+
+    .shipping-label-container>.row.second .col-md-4>div {
+      /* align-items: center; */
+      justify-content: center;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      /* flex-grow: 1; */
+    }
+
+    .border-bottom-2 {
+      border-bottom: 2px solid black;
+    }
+
+    .shipping-label-container>.row.third {
+      display: flex;
+      justify-content: center;
+      border-top: 2px solid black;
+    }
+
+    .shipping-label-container>.row.third>.col-md-4 {
+      border-right: 2px solid black;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .row {
+      margin-left: 0px !important;
+      margin-right: 0px !important;
+    }
+
+    @media print {
+      .shipping-label-container {
+        display: block !important;
+      }
+    }
+
+    .row {
+      margin: 0px !important;
+      display: -webkit-box;
+      display: -webkit-flex;
+    }
+
+    .flex-center {
+      -webkit-justify-content: center;
+      -webkit-align-items: center;
+      display: -webkit-box;
+      display: -webkit-flex;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div id="shipping-label-container">
+    <div class="shipping-label-container m-5">
+      <div class="row first">
+        <div class="col-md-4 border-right-2 flex-center">
+          <div class="font-weight-bold">HamroCloset</div>
+        </div>
+        <div class="col-md-4 border-right-2 flex-center">
+          <div>
+            <small>Order ID</small>
+            <small class="font-weight-bold d-block text-break">
+              <%= order._id %>
+            </small>
+          </div>
+        </div>
+        <div class="col-md-4 font-weight-bold flex-center">
+          <%= date %>
+        </div>
+      </div>
+      <div class="row second">
+        <div class="col-md-8 flex-center">
+          <img src="<%= barcode_image %>" width="256" />
+        </div>
+        <div class="col-md-4 p-0">
+          <div class="text-center">
+            <div class="border-bottom-2 font-weight-bold">
+              <%= order.seller_id?.pickup?.district %>
+            </div>
+            <div class="border-bottom-2 font-weight-bold">Standard</div>
+            <div class="border-bottom-2">&nbsp;</div>
+            <div class="border-bottom-2">&nbsp;</div>
+            <div class="border-bottom-2 font-weight-bold">NON COD</div>
+            <div class="font-weight-bold">Rs. 0.00</div>
+          </div>
+        </div>
+      </div>
+      <div class="row third">
+        <div class="col-md-4 flex-center">
+          <img src="<%= qrcode_image %>" />
+        </div>
+        <div class="col-md-8 p-0">
+          <div class="h-100">
+            <div class="h-50 border-bottom-2 p-2">
+              <b>Ship to:</b>
+              <div>
+                <%= shippingAddress?.name %> - <%= shippingAddress?.phone %> - <%= shippingAddress?.street %>, <%=
+                        shippingAddress?.city %>, <%= shippingAddress?.municipality %>, <%= shippingAddress?.district %>
+              </div>
+            </div>
+            <div class="h-50 p-2">
+              <b>Seller:</b>
+              <div>
+                <%= order?.seller_id?.name %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
