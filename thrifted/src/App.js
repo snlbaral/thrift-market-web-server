@@ -83,8 +83,34 @@ import EditPickupAddress from "./pages/user/address/EditPickupAddress";
 axios.defaults.baseURL = "http://localhost:5000/api";
 // axios.defaults.baseURL = "https://hamrocloset.com/api";
 
-const queryClient = new QueryClient();
+// Add config token to the request so we don't have to add it every time
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers["Authorization"] = "Bearer " + token;
+      config.headers["accept"] = "application/json";
+    }
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  }
+);
+// Clear local storage if token is invalid
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (error.response?.status === 401 || error.response?.status === 403) {
+      localStorage.clear();
+    }
+    return Promise.reject(error);
+  }
+);
 
+const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>

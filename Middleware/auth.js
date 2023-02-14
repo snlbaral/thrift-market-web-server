@@ -1,14 +1,42 @@
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken");
 
-function auth(req,res,next){
-    const token = req.header('access-token')
-
-    try{
-        const decode = jwt.verify(token,'thrifted')
-        req.user = decode
-        next();
-    }catch(err){
-        res.status('400').send(err.message)
+function auth(req, res, next) {
+  const SECRET_KEY = process.env.SECRET_KEY;
+  const authorization = req.headers.authorization;
+  if (!authorization) {
+    return res.status(401).json({
+      message: "No Authorization Header",
+    });
+  }
+  try {
+    const token = authorization.split("Bearer ")[1];
+    if (!token) {
+      return res.status(401).json({
+        message: "Invalid Token Format",
+      });
     }
+    const decode = jwt.verify(token, SECRET_KEY);
+    req.user = decode;
+    next();
+  } catch (error) {
+    if (error instanceof jwt.TokenExpiredError) {
+      return res.status(401).json({
+        message: "Session Expired",
+        error: error.message,
+      });
+    }
+    if (error instanceof jwt.JsonWebTokenError || error instanceof TokenError) {
+      return res.status(401).json({
+        message: "Invalid Token",
+        error: error.message,
+      });
+    }
+    res.status(500).json({
+      message: "Internal server Error",
+      error: error.message,
+      stack: error.stack,
+    });
+  }
 }
-module.exports=auth
+
+module.exports = auth;
