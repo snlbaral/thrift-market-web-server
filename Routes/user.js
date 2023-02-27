@@ -52,7 +52,7 @@ router.post("/make-seller", auth, async (req, res) => {
     await User.findByIdAndUpdate(req.user._id, {
       is_seller: 1,
     });
-    res.send("success");
+    res.json("success");
   } catch (error) {
     console.log("error");
     ApiError(res, 500, "Server Error", error);
@@ -62,7 +62,7 @@ router.post("/make-seller", auth, async (req, res) => {
 router.get("/pickup-location/get", auth, async (req, res) => {
   try {
     const location = await PickupLocation.findOne({ user_id: req.user._id });
-    res.send(location);
+    res.json(location);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -81,7 +81,7 @@ router.put("/change-pickup-location/:id", auth, async (req, res) => {
         municipality: req.body.municipality,
       }
     );
-    res.send("success");
+    res.json("success");
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -262,7 +262,7 @@ router.post("/withdraw/pagination", auth, async (req, res) => {
         .exec(),
       Withdraw.countDocuments({ seller_id: req.user._id }).exec(),
     ]);
-    res.send({ withdraw, total });
+    res.json({ withdraw, total });
   } catch (error) {
     ApiError(res, 500, error.message, error);
   }
@@ -364,7 +364,7 @@ router.post("/check/email", async (req, res) => {
     if (phone) {
       return ApiError(res, 400, "Phone is already taken");
     }
-    res.status(200).send("Ok");
+    res.status(200).json("Ok");
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -376,7 +376,7 @@ router.post("/forgot/check/phone", async (req, res) => {
     if (!user) {
       return ApiError(res, 400, "User not found.");
     }
-    res.status(200).send("Ok");
+    res.status(200).json("Ok");
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -405,7 +405,7 @@ router.put("/:id", auth, async (req, res) => {
       },
       { new: true }
     );
-    res.send("OK");
+    res.json("OK");
   } catch (err) {
     ApiError(res, 500, "Server Error", err);
   }
@@ -463,7 +463,7 @@ router.post("/withdraw", auth, async (req, res) => {
       account_detail: req.body.account_detail,
     });
     withdraw = await withdraw.save();
-    res.send("success");
+    res.json("success");
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -535,7 +535,7 @@ router.post("/change/profile", auth, async (req, res) => {
   if (error) return ApiError(res, 400, error.message);
   try {
     await User.findByIdAndUpdate(req.user._id, req.body);
-    res.send("Success");
+    res.json("Success");
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -570,7 +570,7 @@ router.post("/change/password", auth, async (req, res) => {
             },
             { new: true }
           );
-          res.send("success");
+          res.json("success");
         } else {
           return ApiError(res, 400, "Password did not match");
         }
@@ -592,7 +592,7 @@ router.post("/forgot/password", async (req, res) => {
     if (user) {
       user.verifyKey = req.body.code;
       user.save();
-      res.send("success");
+      res.json("success");
     } else {
       ApiError(res, 400, "User not found");
     }
@@ -629,7 +629,7 @@ router.post("/reset/password", async (req, res) => {
         user.password = hasPassword;
         user.verifyKey = uuidv4();
         await user.save();
-        res.send("success");
+        res.json("success");
       } else {
         return ApiError(res, 400, "Invalid user email");
       }
@@ -688,7 +688,7 @@ router.post("/contact/form", async (req, res) => {
                     <h3>email</h3>: ${req.body.email}
                     <p>${req.body.message}</p>`,
     });
-    res.send("success");
+    res.json("success");
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }

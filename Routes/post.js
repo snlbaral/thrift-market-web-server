@@ -164,7 +164,7 @@ router.post("/like/post/:id", auth, async (req, res) => {
       });
     }
     await post.save();
-    res.send("Success");
+    res.json("Success");
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }

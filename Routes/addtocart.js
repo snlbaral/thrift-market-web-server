@@ -30,7 +30,7 @@ router.post("/cart", auth, async (req, res) => {
     if (cart_pid) {
       cart_pid.quantity = cart_pid.quantity + req.body.quantity;
       cart_pid.save();
-      return res.send(cart_pid);
+      return res.json(cart_pid);
     }
 
     var addtocart = new Addtocart({
@@ -48,7 +48,7 @@ router.post("/cart", auth, async (req, res) => {
     });
 
     addtocart = await addtocart.save();
-    res.send(addtocart);
+    res.json(addtocart);
   } catch (err) {
     ApiError(res, 500, "Server Error", err);
   }

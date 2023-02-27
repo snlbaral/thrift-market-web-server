@@ -9,9 +9,9 @@ const Joi = require("joi");
 router.get("/", auth, async (req, res) => {
   try {
     const locations = await Location.find().sort("district");
-    res.send(locations);
+    res.json(locations);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 
@@ -36,9 +36,9 @@ router.post("/", adminAuth, async (req, res) => {
       area: req.body.area,
     });
     location = await location.save();
-    res.send(location);
+    res.json(location);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 
@@ -46,9 +46,9 @@ router.post("/", adminAuth, async (req, res) => {
 router.get("/:id", auth, async (req, res) => {
   try {
     const location = await Location.findById(req.params.id);
-    res.send(location);
+    res.json(location);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 
@@ -65,9 +65,9 @@ router.put("/:id", adminAuth, async (req, res) => {
       },
       { new: true }
     );
-    res.send(location);
+    res.json(location);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 
@@ -75,9 +75,9 @@ router.put("/:id", adminAuth, async (req, res) => {
 router.delete("/:id", adminAuth, async (req, res) => {
   try {
     const location = await Location.findByIdAndDelete(req.params.id);
-    res.send(location);
+    res.json(location);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 

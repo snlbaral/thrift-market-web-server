@@ -186,7 +186,7 @@ router.post("/app/home", auth, async (req, res) => {
     req,
     `APP_HOME:${req.body.activePage}:${req.user._id}:${feedSetting}`
   );
-  if (data) return res.send(data);
+  if (data) return res.json(data);
 
   try {
     itemsCountPerPage = req.body.itemsCountPerPage;
@@ -355,7 +355,7 @@ router.post("/app/home", auth, async (req, res) => {
 router.get("/materials/get", async (req, res) => {
   try {
     const materials = await Product.find({ type: "material" });
-    res.send(materials);
+    res.json(materials);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -1294,7 +1294,7 @@ router.post("/search-filter", async (req, res) => {
     }
 
     var products = await getSearchResult([], cat_ids, req.body, min, max);
-    res.send(products);
+    res.json(products);
   } catch (error) {
     ApiError(res, 500, error.message, error);
   }
@@ -1307,7 +1307,7 @@ router.post("/notification/token", auth, async (req, res) => {
       user_id: req.user._id,
     });
     if (config) {
-      return res.send("OK");
+      return res.json("OK");
     }
     var expoToken = new ExpoToken({
       user_id: req.user._id,
@@ -1340,9 +1340,9 @@ router.post("/interests/feed", auth, async (req, res) => {
       },
       { new: true }
     );
-    res.send(interests);
+    res.json(interests);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 
@@ -1368,7 +1368,7 @@ router.get("/dashboard/stats", async (req, res) => {
       },
     ]);
 
-    res.send({
+    res.json({
       products,
       customers,
       orders,

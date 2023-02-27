@@ -21,7 +21,7 @@ router.get("/", adminAuth, async (req, res) => {
       .populate("color_id")
       .populate("user_id")
       .sort("-_id");
-    res.send(product);
+    res.json(product);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -280,7 +280,7 @@ router.post("/", auth, async (req, res) => {
         const uploadPath = process.env.IMAGE_UPLOAD_PATH + imageName;
         image.mv(uploadPath, (error) => {
           if (error) {
-            return res.status(500).send(error.message);
+            return res.status(500).json(error.message);
           }
         });
       }
@@ -303,7 +303,7 @@ router.post("/", auth, async (req, res) => {
           const uploadPath = process.env.IMAGE_UPLOAD_PATH + imagesName;
           feature.mv(uploadPath, (error) => {
             if (error) {
-              return res.status(500).send(error.message);
+              return res.status(500).json(error.message);
             }
           });
         });

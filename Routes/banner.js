@@ -10,7 +10,7 @@ const { fileUploadFormData, removeFile } = require("../Middleware/helpers");
 router.get("/", async (req, res) => {
   try {
     const banner = await Banner.find().sort("-_id");
-    res.send(banner);
+    res.json(banner);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -44,7 +44,7 @@ router.post("/", adminAuth, async (req, res) => {
       section: req.body.section,
     });
     banner = await banner.save();
-    res.send(banner);
+    res.json(banner);
   } catch (err) {
     ApiError(res, 500, "Server Error", err);
   }
@@ -53,7 +53,7 @@ router.post("/", adminAuth, async (req, res) => {
 router.get("/:id", auth, async (req, res) => {
   try {
     const banner = await Banner.findById(req.params.id);
-    res.send(banner);
+    res.json(banner);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -101,7 +101,7 @@ router.delete("/:id", adminAuth, async (req, res) => {
   try {
     const banner = await Banner.findByIdAndRemove(req.params.id);
     removeFile(banner.image);
-    res.send(banner);
+    res.json(banner);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }

@@ -31,7 +31,7 @@ router.post("/", auth, async (req, res) => {
       story_video: video,
     });
     story = await story.save();
-    res.send(story);
+    res.json(story);
   } catch (error) {
     ApiError(res, 500, error.message, error);
   }
@@ -44,7 +44,7 @@ router.delete("/:id", auth, async (req, res) => {
       _id: req.params.id,
       user_id: req.user._id,
     });
-    res.send(story);
+    res.json(story);
   } catch (error) {
     ApiError(res, 500, error.message, error);
   }

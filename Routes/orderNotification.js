@@ -196,7 +196,7 @@ router.get("/read", auth, async (req, res) => {
       },
       { multi: true }
     );
-    res.send("success");
+    res.json("success");
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }

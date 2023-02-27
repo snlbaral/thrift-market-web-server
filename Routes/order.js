@@ -181,7 +181,7 @@ router.get("/pending/order", auth, async (req, res) => {
     })
       .sort("-_id")
       .populate(["order_id", "product_id", "seller_id", "user_id"]);
-    res.send(order);
+    res.json(order);
   } catch (error) {
     ApiError(res, 500, error.message, error);
   }
@@ -288,7 +288,7 @@ router.post("/", auth, async (req, res) => {
       );
     }
 
-    res.send("success");
+    res.json("success");
   } catch (error) {
     console.log(error.message);
     ApiError(res, 500, "Server Error", error);
@@ -377,7 +377,7 @@ router.post("/web/payment", auth, async (req, res) => {
       );
     }
 
-    res.send("success");
+    res.json("success");
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -462,7 +462,7 @@ router.post("/sales/pagination", auth, async (req, res) => {
       ]).exec(),
     ]);
     totalSales = totalSales.length ? totalSales[0].total : 0;
-    res.send({ orders, total, totalSales });
+    res.json({ orders, total, totalSales });
   } catch (error) {
     console.log(error.message);
     ApiError(res, 500, error.message, error);
@@ -591,7 +591,7 @@ router.post("/generate/invoice", auth, async (req, res) => {
     var filePath = "./files/";
     var filename = new Date().getTime();
     fs.writeFileSync(filePath + filename + ".pdf", result.pdf, "base64");
-    res.send(process.env.DOMAIN + "/api/order/invoice/download/" + filename);
+    res.json(process.env.DOMAIN + "/api/order/invoice/download/" + filename);
   } catch (error) {
     ApiError(res, 500, error.message, error);
   }
@@ -654,8 +654,8 @@ router.post("/generate/shipping-label", auth, async (req, res) => {
     // Create PDF File and Save It
     var filename = new Date().getTime();
     pdf.create(html).toFile(filePath + filename + ".pdf", function (err, data) {
-      if (err) return res.send(err);
-      res.send(
+      if (err) return res.json(err);
+      res.json(
         process.env.DOMAIN + "/api/order/shipping-label/download/" + filename
       );
     });
@@ -921,7 +921,7 @@ router.post("/orderstatus", auth, async (req, res) => {
         }
       }
       await order.save();
-      res.send("success");
+      res.json("success");
     } else {
       ApiError(res, 400, "No Permission");
     }

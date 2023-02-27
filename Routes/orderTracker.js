@@ -10,9 +10,9 @@ const Order = require("../Models/Order");
 router.get("/", Authorization, async (req, res) => {
   try {
     const orderTrackers = await OrderTracker.find();
-    res.send(orderTrackers);
+    res.json(orderTrackers);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 
@@ -31,7 +31,7 @@ router.post("/:id", Authorization, async (req, res) => {
     order.order_status = req.body.order_status;
     await order.save();
 
-    res.send("success");
+    res.json("success");
   } catch (error) {
     ApiError(res, 500, error.message, error);
   }
@@ -41,16 +41,16 @@ router.post("/:id", Authorization, async (req, res) => {
 router.get("/:id", Authorization, async (req, res) => {
   try {
     const orderTracker = await OrderTracker.findById(req.params.id);
-    res.send(orderTracker);
+    res.json(orderTracker);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 
 router.get("/order/:id", Authorization, async (req, res) => {
   try {
     const order = await OrderTracker.find({ order_id: req.params.id });
-    res.send(order);
+    res.json(order);
   } catch (error) {
     ApiError(res, 500, error.message, error);
   }
@@ -66,9 +66,9 @@ router.put("/:id", Authorization, async (req, res) => {
       },
       { new: true }
     );
-    res.send(orderTracker);
+    res.json(orderTracker);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 
@@ -76,9 +76,9 @@ router.put("/:id", Authorization, async (req, res) => {
 router.delete("/:id", Authorization, async (req, res) => {
   try {
     const orderTracker = await OrderTracker.findByIdAndDelete(req.params.id);
-    res.send(orderTracker);
+    res.json(orderTracker);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 });
 

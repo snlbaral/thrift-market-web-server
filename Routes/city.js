@@ -8,7 +8,7 @@ const ApiError = require("../Middleware/ApiError");
 router.get("/", auth, async (req, res) => {
   try {
     const city = await City.find().populate("district_id");
-    res.send(city);
+    res.json(city);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -46,7 +46,7 @@ router.put("/:id", adminAuth, async (req, res) => {
       },
       { new: true }
     );
-    res.send(city);
+    res.json(city);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -55,7 +55,7 @@ router.put("/:id", adminAuth, async (req, res) => {
 router.delete("/:id", adminAuth, async (req, res) => {
   try {
     const city = await City.findByIdAndRemove(req.params.id);
-    res.send(city);
+    res.json(city);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }

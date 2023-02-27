@@ -12,7 +12,7 @@ const { fileUploadFormData, removeFile } = require("../Middleware/helpers");
 router.get("/", async (req, res) => {
   try {
     const brand = await Brand.find().sort("-_id");
-    res.send(brand);
+    res.json(brand);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -46,7 +46,7 @@ router.post("/", adminAuth, async (req, res) => {
     });
 
     brand = await brand.save();
-    res.send(brand);
+    res.json(brand);
   } catch (err) {
     ApiError(res, 500, "Server Error", err);
   }
@@ -55,7 +55,7 @@ router.post("/", adminAuth, async (req, res) => {
 router.get("/:id", auth, async (req, res) => {
   try {
     const brand = await Brand.findById(req.params.id);
-    res.send(brand);
+    res.json(brand);
   } catch (err) {
     ApiError(res, 500, "Server Error", err);
   }
@@ -92,7 +92,7 @@ router.put("/:id", adminAuth, async (req, res) => {
       },
       { new: true }
     );
-    res.send(brand);
+    res.json(brand);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -117,7 +117,7 @@ router.post("/filter", async (req, res) => {
     const colors = await Color.find();
     const brands = await Brand.find().sort("-productcount");
     const total = await Product.countDocuments({ brand_id: brand._id });
-    res.send({ products, colors, brands, brand, total });
+    res.json({ products, colors, brands, brand, total });
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -221,7 +221,7 @@ router.post("/brandcheck", async (req, res) => {
         max
       );
 
-      res.send({ products, total });
+      res.json({ products, total });
     } else {
       ApiError(res, 400, "Invalid Params");
     }
@@ -234,7 +234,7 @@ router.delete("/:id", adminAuth, async (req, res) => {
   try {
     const brand = await Brand.findByIdAndRemove(req.params.id);
     removeFile(brand.image);
-    res.send(brand);
+    res.json(brand);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }

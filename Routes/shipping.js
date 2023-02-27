@@ -10,7 +10,7 @@ const ApiError = require("../Middleware/ApiError");
 router.get("/", auth, async (req, res) => {
   try {
     const shipping = await Shipping.find().limit(10);
-    res.send(shipping);
+    res.json(shipping);
   } catch (err) {
     ApiError(res, 500, "Server Error", err);
   }
@@ -21,7 +21,7 @@ router.get("/:branch", auth, async (req, res) => {
     const shipping = await Shipping.find({
       from: new RegExp(req.params.branch, "i"),
     });
-    res.send(shipping);
+    res.json(shipping);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -36,7 +36,7 @@ router.post("/price-list", auth, async (req, res) => {
     const shipping = await Shipping.find({
       from: { $in: regex },
     });
-    res.send(shipping);
+    res.json(shipping);
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -58,7 +58,7 @@ router.post("/price-list/by-seller-ids", auth, async (req, res) => {
     const shipping = await Shipping.find({
       from: { $in: regex },
     });
-    res.send({ locations, shipping });
+    res.json({ locations, shipping });
   } catch (error) {
     ApiError(res, 500, "Server Error", error);
   }
@@ -83,7 +83,7 @@ router.post("/", auth, async (req, res) => {
     });
 
     shipping = await shipping.save();
-    res.send(shipping);
+    res.json(shipping);
   } catch (err) {
     ApiError(res, 500, "Server Error", err);
   }
